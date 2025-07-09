@@ -28,13 +28,23 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          submodules: true  # Fetch Hugo themes (true OR recursive)
+          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+          
+      - name: Install
+        run: yarn install
+
+      - name: Build
+        run: yarn run build
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./src
-          destination: ./_site
+    #  - name: Build with Jekyll
+    #    uses: actions/jekyll-build-pages@v1
+    #    with:
+    #      source: ./src
+    #      destination: ./_site
+    
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 
